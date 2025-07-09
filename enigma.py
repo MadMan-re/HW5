@@ -62,4 +62,24 @@ def load_enigma_from_path(path):
     enigma = Enigma(hash_map,wheels,reflector_map)
     return enigma
 
-
+if __name__ == "__main__":
+    try:
+        import sys
+        args = sys.argv
+        path = args[args.index("-c") + 1]
+        input = args[args.index("-i") + 1]
+        if "-o" in args:
+            output = args[args.index("-o") + 1]
+        enigma = load_enigma_from_path(path)
+        with open(path,'r') as f:
+            lines = f.readlines()
+        encrypted = [enigma.encrypt(line) for line in lines]
+        if "-o" in args:
+            with open(output, 'w') as f:
+                f.write(encrypted)
+        else:
+            print(encrypted)
+        
+    except JSONFileException:
+        print("The enigma script has encountered an error")
+        exit(1)
