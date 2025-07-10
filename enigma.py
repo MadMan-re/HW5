@@ -37,22 +37,21 @@ class Enigma:
                         c3 = j
                 incryptedmessage += c3
                 count += 1
-                if count % 2 == 0:
-                    self.wheels[1] *= 2
-                else:
-                    self.wheels[1] -= 1
-                if count % 10 == 0:
-                    self.wheels[2] = 10
-                elif count % 3 == 0:
-                    self.wheels[2] = 5
-                else:
-                    self.wheels[2] = 0
+                
 
             self.wheels[0] = (self.wheels[0] + 1) % 9
             if self.wheels[0] == 0:
                 self.wheels[0] = 1
-            if char == " ":
-                continue
+            if count % 2 == 0:
+                self.wheels[1] *= 2
+            else:
+                self.wheels[1] -= 1
+            if count % 10 == 0:
+                self.wheels[2] = 10
+            elif count % 3 == 0:
+                self.wheels[2] = 5
+            else:
+                self.wheels[2] = 0
         self.wheels = originalWheels
         return incryptedmessage
     
