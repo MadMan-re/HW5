@@ -10,7 +10,7 @@ class Enigma:
         count = 0
         for char in message:
             if char not in self.hash_map:
-                incryptedmessage += char 
+                continue 
             else:
                 i =  self.hash_map.get(char)
                 toAdd = ((self.wheels[0] * 2) - self.wheels[1] + self.wheels[2]) % 26 
