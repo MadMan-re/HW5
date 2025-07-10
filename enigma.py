@@ -74,13 +74,13 @@ if __name__ == "__main__":
         if "-o" in args:
             output = args[args.index("-o") + 1]
         enigma = load_enigma_from_path(path)
-        with open(path,'r') as f:
+        with open(input,'r') as f:
             lines = f.readlines()
         encrypted = [enigma.encrypt(line) for line in lines]
         if "-o" in args:
             with open(output, 'w') as f:
                 for line in encrypted:
-                    f.write(line)
+                    f.write(line + '\n')
         else:
             for line in encrypted:
                 print(encrypted)
