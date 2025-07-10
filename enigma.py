@@ -11,7 +11,9 @@ class Enigma:
         originalWheels = self.wheels[:]
         for char in message:
             if char not in self.hash_map:
-                continue 
+                if char != "\n":
+                    incryptedmessage += char
+                 
             else:
                 i =  self.hash_map.get(char)
                 toAdd = ((self.wheels[0] * 2) - self.wheels[1] + self.wheels[2]) % 26 
@@ -34,21 +36,23 @@ class Enigma:
                     if self.hash_map[j] == i :
                         c3 = j
                 incryptedmessage += c3
+                count += 1
+                if count % 2 == 0:
+                    self.wheels[1] *= 2
+                else:
+                    self.wheels[1] -= 1
+                if count % 10 == 0:
+                    self.wheels[2] = 10
+                elif count % 3 == 0:
+                    self.wheels[2] = 5
+                else:
+                    self.wheels[2] = 0
+
             self.wheels[0] = (self.wheels[0] + 1) % 9
             if self.wheels[0] == 0:
                 self.wheels[0] = 1
-            count += 1 
-            if count % 2 == 0:
-                self.wheels[1] *= 2
-            else:
-                self.wheels[1] -= 1
-            if count % 10 == 0:
-                self.wheels[2] = 10
-            elif count % 3 == 0:
-                self.wheels[2] = 5
-            else:
-                self.wheels[2] = 0
-
+            if char == " ":
+                continue
         self.wheels = originalWheels
         return incryptedmessage
     
