@@ -9,29 +9,32 @@ class Enigma:
         incryptedmessage = ""
         count = 0
         for char in message:
-            i =  self.hash_map.get(char)
-            toAdd = ((self.wheels[0] * 2) - self.wheels[1] + self.wheels[2]) % 26 
-            if toAdd == 0:
-                i = i + 1
+            if char not in self.hash_map:
+                incryptedmessage += char 
             else:
-                i = i + toAdd
-            i = i % 26
-            for k in self.hash_map.keys():
-                if self.hash_map[k] == i:
-                    c1 = k
-            c2 = self.reflector_map[c1]
-            i = self.reflector_map[c2]
-            if toAdd == 0:
-                i = i - 1
-            else:
-                i = i - toAdd
-            i = i % 26
-            for j in self.hash_map.keys():
-                if self.hash_map[j] == i :
-                    c3 = j
-            incryptedmessage += c3
-            self.wheels[0] = (self.wheels[0] + 1) % 9
-            count += 1 
+                i =  self.hash_map.get(char)
+                toAdd = ((self.wheels[0] * 2) - self.wheels[1] + self.wheels[2]) % 26 
+                if toAdd == 0:
+                    i = i + 1
+                else:
+                    i = i + toAdd
+                i = i % 26
+                for k in self.hash_map.keys():
+                    if self.hash_map[k] == i:
+                        c1 = k
+                c2 = self.reflector_map[c1]
+                i = self.reflector_map[c2]
+                if toAdd == 0:
+                    i = i - 1
+                else:
+                    i = i - toAdd
+                i = i % 26
+                for j in self.hash_map.keys():
+                    if self.hash_map[j] == i :
+                        c3 = j
+                incryptedmessage += c3
+                self.wheels[0] = (self.wheels[0] + 1) % 9
+                count += 1 
             if count % 2 == 0:
                 self.wheels[1] *= 2
             else:
