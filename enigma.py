@@ -79,9 +79,11 @@ if __name__ == "__main__":
         encrypted = [enigma.encrypt(line) for line in lines]
         if "-o" in args:
             with open(output, 'w') as f:
-                f.write(encrypted)
+                for line in encrypted:
+                    f.write(line)
         else:
-            print(encrypted)
+            for line in encrypted:
+                print(encrypted)
         
     except JSONFileException:
         print("The enigma script has encountered an error")
