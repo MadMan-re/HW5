@@ -23,7 +23,7 @@ class Enigma:
                     if self.hash_map[k] == i:
                         c1 = k
                 c2 = self.reflector_map[c1]
-                i = self.reflector_map[c2]
+                i = self.hash_map[c2]
                 if toAdd == 0:
                     i = i - 1
                 else:
