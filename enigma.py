@@ -8,6 +8,7 @@ class Enigma:
     def encrypt(self, message):
         incryptedmessage = ""
         count = 0
+        originalWheels = self.wheels[:]
         for char in message:
             if char not in self.hash_map:
                 continue 
@@ -33,8 +34,10 @@ class Enigma:
                     if self.hash_map[j] == i :
                         c3 = j
                 incryptedmessage += c3
-                self.wheels[0] = (self.wheels[0] + 1) % 9
-                count += 1 
+            self.wheels[0] = (self.wheels[0] + 1) % 9
+            if self.wheels[0] == 0:
+                self.wheels[0] = 1
+            count += 1 
             if count % 2 == 0:
                 self.wheels[1] *= 2
             else:
@@ -46,7 +49,9 @@ class Enigma:
             else:
                 self.wheels[2] = 0
 
+        self.wheels = originalWheels
         return incryptedmessage
+    
 
 class JSONFileException(Exception):
 
